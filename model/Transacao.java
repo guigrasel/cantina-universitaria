@@ -31,8 +31,8 @@ public class Transacao {
       return pagamento;
     }
 
-    public LocalDateTime getDataHora() 
+    public String getDataHora() 
     {
-      return dataHora;
+      return dataHora.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
 }
