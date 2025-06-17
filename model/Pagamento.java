@@ -1,3 +1,5 @@
+package model;
+
 public class Pagamento {
     private String tipoPagamento;
     private double valorRecebido;

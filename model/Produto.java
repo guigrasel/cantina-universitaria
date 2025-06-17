@@ -1,3 +1,5 @@
+package model;
+
 public class Produto {
     private int id;
     private String nome;
@@ -24,7 +26,7 @@ public class Produto {
     { 
       return nome; 
     }
-    
+
     public String getCategoria() 
     { 
       return categoria; 

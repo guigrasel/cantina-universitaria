@@ -1,4 +1,7 @@
+package controller;
+
 import java.util.ArrayList;
+import model.Produto;
 
 public class Estoque {
   private ArrayList<Produto> produtos;
