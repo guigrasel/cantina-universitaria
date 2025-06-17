@@ -7,7 +7,7 @@ public class TelaPrincipalView extends JFrame {
   public TelaPrincipalView() 
   {
     setTitle("Cantina Universitária - Autoatendimento");
-    setSize(600, 300);
+    setSize(600, 400);
     setDefaultCloseOperation(EXIT_ON_CLOSE);
     setLocationRelativeTo(null);
 
@@ -61,9 +61,6 @@ public class TelaPrincipalView extends JFrame {
     //     this.dispose();
     // });
 
-    // btnAdmin.addActionListener(e -> {
-    //     new TelaLoginAdminView().setVisible(true);
-    //     this.dispose();
-    // });
+    btnAdmin.addActionListener(e -> new TelaLoginAdminView().setVisible(true));
   }
 }
