@@ -48,6 +48,7 @@ public class TelaLoginAdminView extends JFrame {
 
             if (usuario.equals("admin") && senha.equals("admin")) {
                 JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+                new TelaAdminPrincipalView().setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);

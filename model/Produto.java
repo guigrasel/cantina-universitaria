@@ -1,20 +1,21 @@
 package model;
 
 public class Produto {
+    private static int contador = 1;
     private int id;
     private String nome;
     private String categoria;
     private double preco;
     private int quantidadeEstoque;
-    private String validade;
 
-    public Produto(int id, String nome, String categoria, double preco, int quantidadeEstoque, String validade) {
-        this.id = id;
+    public Produto(String nome, String categoria, double preco, int quantidadeEstoque, String validade) {
+        this.id = Produto.contador;
         this.nome = nome;
         this.categoria = categoria;
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
-        this.validade = validade;
+
+        Produto.contador++;
     }
 
     public int getId() 
@@ -40,11 +41,6 @@ public class Produto {
     public int getQuantidadeEstoque() 
     { 
       return quantidadeEstoque; 
-    }
-
-    public String getValidade() 
-    { 
-      return validade; 
     }
 
     public void setQuantidadeEstoque(int quantidadeEstoque) 
