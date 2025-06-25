@@ -19,8 +19,7 @@ public class TelaEstoqueView extends JFrame {
     setLocationRelativeTo(null);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-    // Modelo da tabela
-    String[] colunas = {"ID", "Nome", "Quantidade", "Validade"};
+    String[] colunas = {"ID", "Categoria", "Nome", "Quantidade", "Validade"};
     tableModel = new DefaultTableModel(colunas, 0) {
       @Override
       public boolean isCellEditable(int row, int column) {
@@ -31,7 +30,6 @@ public class TelaEstoqueView extends JFrame {
 
     JScrollPane scrollPane = new JScrollPane(table);
 
-    // Botões
     JButton btnAdicionar = new JButton("Adicionar Produto");
     JButton btnAbastecer = new JButton("Abastecer Produto");
     JButton btnRemover = new JButton("Remover Produto");
@@ -46,7 +44,6 @@ public class TelaEstoqueView extends JFrame {
 
     atualizarTabela();
 
-    // Ações dos botões
     btnAdicionar.addActionListener(e -> adicionarProduto());
     btnAbastecer.addActionListener(e -> abastecerProduto());
     btnRemover.addActionListener(e -> removerProduto());
@@ -57,6 +54,7 @@ public class TelaEstoqueView extends JFrame {
     for (Produto p : estoque.getProdutos()) {
       tableModel.addRow(new Object[]{
         p.getId(),
+        p.getCategoria(),
         p.getNome(),
         p.getQuantidadeEstoque(),
         p.getValidade()
@@ -66,7 +64,7 @@ public class TelaEstoqueView extends JFrame {
 
   private void adicionarProduto() {
     JTextField txtNome = new JTextField();
-    JTextField txtCategoria = new JTextField();
+    JComboBox<String> comboCategoria = new JComboBox<>(new String[]{"Lanche", "Doce", "Bebida"});
     JTextField txtPreco = new JTextField();
     JTextField txtQuantidade = new JTextField();
     JTextField txtValidade = new JTextField();
@@ -75,7 +73,7 @@ public class TelaEstoqueView extends JFrame {
     panel.add(new JLabel("Nome:"));
     panel.add(txtNome);
     panel.add(new JLabel("Categoria:"));
-    panel.add(txtCategoria);
+    panel.add(comboCategoria);
     panel.add(new JLabel("Preço:"));
     panel.add(txtPreco);
     panel.add(new JLabel("Quantidade em Estoque:"));
@@ -87,7 +85,7 @@ public class TelaEstoqueView extends JFrame {
     if (result == JOptionPane.OK_OPTION) {
       try {
         String nome = txtNome.getText();
-        String categoria = txtCategoria.getText();
+        String categoria = (String) comboCategoria.getSelectedItem();
         double preco = Double.parseDouble(txtPreco.getText());
         int quantidade = Integer.parseInt(txtQuantidade.getText());
         String validade = txtValidade.getText();
@@ -96,7 +94,7 @@ public class TelaEstoqueView extends JFrame {
         estoque.adicionarProduto(novoProduto);
         atualizarTabela();
       } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Dados inválidos! Verifique os campos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Dados inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
       }
     }
   }
@@ -113,6 +111,7 @@ public class TelaEstoqueView extends JFrame {
 
     String input = JOptionPane.showInputDialog(this,
       "Quantidade a abastecer para '" + produto.getNome() + "':", "0");
+
     if (input != null) {
       try {
         int qtdAbastecer = Integer.parseInt(input);
@@ -120,7 +119,7 @@ public class TelaEstoqueView extends JFrame {
         produto.setQuantidadeEstoque(produto.getQuantidadeEstoque() + qtdAbastecer);
         atualizarTabela();
       } catch (NumberFormatException ex) {
-        JOptionPane.showMessageDialog(this, "Quantidade inválida!", "Erro", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Quantidade inválida, valor deve partir de 1!", "Erro", JOptionPane.ERROR_MESSAGE);
       }
     }
   }
@@ -131,7 +130,7 @@ public class TelaEstoqueView extends JFrame {
       JOptionPane.showMessageDialog(this, "Selecione um produto para remover.");
       return;
     }
-    
+
     int confirm = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja remover o produto?",
       "Remover Produto", JOptionPane.YES_NO_OPTION);
 
