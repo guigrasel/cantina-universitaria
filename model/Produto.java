@@ -7,6 +7,7 @@ public class Produto {
     private String categoria;
     private double preco;
     private int quantidadeEstoque;
+    private String validade;
 
     public Produto(String nome, String categoria, double preco, int quantidadeEstoque, String validade) {
         this.id = Produto.contador;
@@ -14,7 +15,7 @@ public class Produto {
         this.categoria = categoria;
         this.preco = preco;
         this.quantidadeEstoque = quantidadeEstoque;
-
+        this.validade = validade;
         Produto.contador++;
     }
 
@@ -36,6 +37,11 @@ public class Produto {
     public double getPreco() 
     { 
       return preco; 
+    }
+
+    public String getValidade() 
+    {
+      return validade;
     }
 
     public int getQuantidadeEstoque() 

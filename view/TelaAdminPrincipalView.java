@@ -1,12 +1,18 @@
 package view;
 
 import javax.swing.*;
+
+import controller.Estoque;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class TelaAdminPrincipalView extends JFrame {
-  public TelaAdminPrincipalView() 
+  private Estoque estoque;
+
+  public TelaAdminPrincipalView(Estoque estoque) 
   {
+    this.estoque = estoque;
     setTitle("Área Administrativa - Cantina");
     setSize(500, 400);
     setLocationRelativeTo(null);
@@ -26,17 +32,16 @@ public class TelaAdminPrincipalView extends JFrame {
 
     JButton btnEstoque = new JButton("Gerenciar Estoque");
     JButton btnRelatorios = new JButton("Relatórios");
-    JButton btnAbastecimento = new JButton("Abastecer Produtos");
     JButton btnSair = new JButton("Sair");
 
     botoesPanel.add(btnEstoque);
     botoesPanel.add(btnRelatorios);
-    botoesPanel.add(btnAbastecimento);
     botoesPanel.add(btnSair);
 
     panel.add(botoesPanel, BorderLayout.CENTER);
 
     btnSair.addActionListener((ActionEvent e) -> dispose());
+    btnEstoque.addActionListener(e -> new TelaEstoqueView(this.estoque).setVisible(true));
 
     setContentPane(panel);
     setResizable(false);

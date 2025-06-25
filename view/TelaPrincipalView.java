@@ -1,10 +1,13 @@
 package view;
 
 import javax.swing.*;
+
+import controller.Estoque;
+
 import java.awt.*;
 
 public class TelaPrincipalView extends JFrame {
-  public TelaPrincipalView() 
+  public TelaPrincipalView(Estoque estoque) 
   {
     setTitle("Cantina Universitária - Autoatendimento");
     setSize(600, 400);
@@ -61,6 +64,6 @@ public class TelaPrincipalView extends JFrame {
     //     this.dispose();
     // });
 
-    btnAdmin.addActionListener(e -> new TelaLoginAdminView().setVisible(true));
+    btnAdmin.addActionListener(e -> new TelaLoginAdminView(estoque).setVisible(true));
   }
 }

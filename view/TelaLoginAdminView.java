@@ -5,8 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import controller.Estoque;
+
 public class TelaLoginAdminView extends JFrame {
-  public TelaLoginAdminView()
+  public TelaLoginAdminView(Estoque estoque)
   {
       setTitle("Login Administrativo");
       setSize(350, 220);
@@ -48,7 +50,7 @@ public class TelaLoginAdminView extends JFrame {
 
             if (usuario.equals("admin") && senha.equals("admin")) {
                 JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
-                new TelaAdminPrincipalView().setVisible(true);
+                new TelaAdminPrincipalView(estoque).setVisible(true);
                 dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
