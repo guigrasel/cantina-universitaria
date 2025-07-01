@@ -62,7 +62,7 @@ public class TelaEstoqueView extends JFrame {
     }
   }
 
-  private void adicionarProduto() {
+private void adicionarProduto() {
     JTextField txtNome = new JTextField();
     JComboBox<String> comboCategoria = new JComboBox<>(new String[]{"Lanche", "Doce", "Bebida"});
     JTextField txtPreco = new JTextField();
@@ -81,23 +81,67 @@ public class TelaEstoqueView extends JFrame {
     panel.add(new JLabel("Validade (dd/MM/yyyy):"));
     panel.add(txtValidade);
 
+    // Campos extras
+    JTextField txtAtributoExtra = new JTextField();
+    JCheckBox chkExtra = new JCheckBox();
+
+    // Atualiza o painel quando muda a categoria
+    comboCategoria.addActionListener(e -> {
+        panel.remove(txtAtributoExtra);
+        panel.remove(chkExtra);
+
+        String categoria = (String) comboCategoria.getSelectedItem();
+        if (categoria.equals("Lanche")) {
+            chkExtra.setText("É vegetariano?");
+            panel.add(chkExtra);
+        } else if (categoria.equals("Doce")) {
+            panel.add(new JLabel("Tipo de Açúcar:"));
+            panel.add(txtAtributoExtra);
+        } else if (categoria.equals("Bebida")) {
+            chkExtra.setText("É alcoólica?");
+            panel.add(chkExtra);
+        }
+        panel.revalidate();
+        panel.repaint();
+    });
+    // Chama para inicializar com o campo certo
+    comboCategoria.setSelectedIndex(0);
+
     int result = JOptionPane.showConfirmDialog(this, panel, "Adicionar Produto", JOptionPane.OK_CANCEL_OPTION);
     if (result == JOptionPane.OK_OPTION) {
-      try {
-        String nome = txtNome.getText();
-        String categoria = (String) comboCategoria.getSelectedItem();
-        double preco = Double.parseDouble(txtPreco.getText());
-        int quantidade = Integer.parseInt(txtQuantidade.getText());
-        String validade = txtValidade.getText();
+        try {
+            String nome = txtNome.getText();
+            String categoria = (String) comboCategoria.getSelectedItem();
+            double preco = Double.parseDouble(txtPreco.getText());
+            int quantidade = Integer.parseInt(txtQuantidade.getText());
+            String validade = txtValidade.getText();
 
-        Produto novoProduto = new Produto(nome, categoria, preco, quantidade, validade);
-        estoque.adicionarProduto(novoProduto);
-        atualizarTabela();
-      } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Dados inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
-      }
+            Produto novoProduto;
+            switch (categoria) {
+                case "Lanche":
+                    boolean vegetariano = chkExtra.isSelected();
+                    novoProduto = new model.Lanche(nome, categoria, preco, quantidade, validade, vegetariano);
+                    break;
+                case "Doce":
+                    String tipoAcucar = txtAtributoExtra.getText();
+                    novoProduto = new model.Doce(nome, categoria, preco, quantidade, validade, tipoAcucar);
+                    break;
+                case "Bebida":
+                    boolean alcoolica = chkExtra.isSelected();
+                    novoProduto = new model.Bebida(nome, categoria, preco, quantidade, validade, alcoolica);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Categoria inválida");
+            }
+
+            estoque.adicionarProduto(novoProduto);
+            atualizarTabela();
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Dados inválidos!", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
     }
-  }
+}
+
 
   private void abastecerProduto() {
     int selectedRow = table.getSelectedRow();
