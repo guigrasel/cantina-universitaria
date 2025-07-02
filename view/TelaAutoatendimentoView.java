@@ -1,28 +1,31 @@
 package view;
 
 import controller.Estoque;
+import model.HistoricoTransacoes;
 import model.Produto;
+import model.Transacao;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TelaAutoatendimentoView extends JFrame {
 
   private Estoque estoque;
+  private HistoricoTransacoes historicoTransacoes;
   private DefaultTableModel tableModel;
   private JTable table;
   private DefaultTableModel carrinhoModel;
   private JTable carrinhoTable;
-  private List<Produto> carrinho = new ArrayList<>();
+  private ArrayList<Produto> carrinho = new ArrayList<>();
   private JLabel lblTotal;
 
-  public TelaAutoatendimentoView(Estoque estoque) {
+  public TelaAutoatendimentoView(Estoque estoque, HistoricoTransacoes historicoTransacoes) {
     this.estoque = estoque;
+    this.historicoTransacoes = historicoTransacoes;
     setTitle("Autoatendimento - Cantina Universitária");
-    setSize(800, 500);
+    setSize(1200, 600);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
@@ -49,6 +52,14 @@ public class TelaAutoatendimentoView extends JFrame {
     carrinhoTable = new JTable(carrinhoModel);
     JScrollPane scrollCarrinho = new JScrollPane(carrinhoTable);
 
+    JPanel painelEstoque = new JPanel(new BorderLayout());
+    painelEstoque.setBorder(BorderFactory.createTitledBorder("Estoque"));
+    painelEstoque.add(scrollProdutos, BorderLayout.CENTER);
+
+    JPanel painelCarrinho = new JPanel(new BorderLayout());
+    painelCarrinho.setBorder(BorderFactory.createTitledBorder("Carrinho"));
+    painelCarrinho.add(scrollCarrinho, BorderLayout.CENTER);
+
     JButton btnAdicionar = new JButton("Adicionar ao Carrinho");
     JButton btnRemover = new JButton("Remover do Carrinho");
     JButton btnFinalizar = new JButton("Finalizar Compra");
@@ -56,9 +67,9 @@ public class TelaAutoatendimentoView extends JFrame {
 
     lblTotal = new JLabel("Total: R$ 0,00");
 
-    JPanel painel = new JPanel(new BorderLayout(10, 10));
-    painel.add(scrollProdutos, BorderLayout.WEST);
-    painel.add(scrollCarrinho, BorderLayout.CENTER);
+    JPanel painel = new JPanel(new GridLayout(1, 2, 10, 10));
+    painel.add(painelEstoque);
+    painel.add(painelCarrinho);
 
     JPanel painelSul = new JPanel(new FlowLayout());
     painelSul.add(btnAdicionar);
@@ -161,6 +172,7 @@ public class TelaAutoatendimentoView extends JFrame {
       JOptionPane.showMessageDialog(this, "Seu carrinho está vazio!");
       return;
     }
+
     int result = JOptionPane.showConfirmDialog(this,
         lblTotal.getText() + "\nDeseja finalizar a compra?",
         "Confirmar Compra",
@@ -168,7 +180,14 @@ public class TelaAutoatendimentoView extends JFrame {
 
     if (result == JOptionPane.YES_OPTION) 
     {
-      JOptionPane.showMessageDialog(this, "Compra realizada com sucesso!\nRetire seu pedido no balcão.");
+      double total = 0;
+      for (Produto p : carrinho) total += p.getPreco();
+
+      Transacao transacao = new Transacao(carrinho, total);
+      historicoTransacoes.adicionarTransacao(transacao);
+
+      JOptionPane.showMessageDialog(this, "Compra realizada!\n" + transacao);
+
       carrinho.clear();
       atualizarTabelaProdutos();
       atualizarTabelaCarrinho();

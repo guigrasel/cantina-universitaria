@@ -1,38 +1,46 @@
 package model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class Transacao {
-    private int id;
-    private Pedido pedido;
-    private Pagamento pagamento;
-    private LocalDateTime dataHora;
+    private static int proximoId = 1;
 
-    public Transacao(int id, Pedido pedido, Pagamento pagamento, LocalDateTime dataHora) 
-    {
-      this.id = id;
-      this.pedido = pedido;
-      this.pagamento = pagamento;
-      this.dataHora = dataHora;
+    private int id;
+    private LocalDateTime dataHora;
+    private ArrayList<Produto> produtos;
+    private double valorTotal;
+
+    public Transacao(ArrayList<Produto> produtos, double valorTotal) {
+      this.id = proximoId++;
+      this.dataHora = LocalDateTime.now();
+      this.produtos = produtos;
+      this.valorTotal = valorTotal;
     }
 
     public int getId() 
-    {
-      return id;
+    { 
+      return id; 
     }
 
-    public Pedido getPedido() 
-    {
-      return pedido;
+    public LocalDateTime getDataHora() 
+    { 
+      return dataHora; 
     }
 
-    public Pagamento getPagamento() 
-    {
-      return pagamento;
+    public ArrayList<Produto> getProdutos() 
+    { 
+      return produtos; 
     }
 
-    public String getDataHora() 
+    public double getValorTotal() 
+    { 
+      return valorTotal; 
+    }
+
+    @Override
+    public String toString() 
     {
-      return dataHora.format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
+      return "Transacao #" + id + " - " + dataHora + " - Total: R$ " + String.format("%.2f", valorTotal);
     }
 }

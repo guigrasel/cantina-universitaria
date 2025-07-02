@@ -3,11 +3,12 @@ package view;
 import javax.swing.*;
 
 import controller.Estoque;
+import model.HistoricoTransacoes;
 
 import java.awt.*;
 
 public class TelaPrincipalView extends JFrame {
-  public TelaPrincipalView(Estoque estoque) 
+  public TelaPrincipalView(Estoque estoque, HistoricoTransacoes historicoTransacoes) 
   {
     setTitle("Cantina Universitária - Autoatendimento");
     setSize(600, 400);
@@ -53,7 +54,7 @@ public class TelaPrincipalView extends JFrame {
 
     add(mainPanel);
 
-    btnAutoatendimento.addActionListener(e -> new TelaAutoatendimentoView(estoque).setVisible(true));
+    btnAutoatendimento.addActionListener(e -> new TelaAutoatendimentoView(estoque, historicoTransacoes).setVisible(true));
     btnAdmin.addActionListener(e -> new TelaLoginAdminView(estoque).setVisible(true));
   }
 }
