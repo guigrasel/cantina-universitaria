@@ -7,7 +7,7 @@ public class HistoricoTransacoes {
 
   public HistoricoTransacoes() 
   {
-    this.transacoes = new ArrayList<>();
+    this.transacoes = new ArrayList<Transacao>();
   }
 
   public void adicionarTransacao(Transacao transacao) 

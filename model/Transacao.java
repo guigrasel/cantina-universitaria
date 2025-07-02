@@ -41,6 +41,6 @@ public class Transacao {
     @Override
     public String toString() 
     {
-      return "Transacao #" + id + " - " + dataHora + " - Total: R$ " + String.format("%.2f", valorTotal);
+      return "Transação #" + id + " - " + dataHora + " - Total: R$ " + String.format("%.2f", valorTotal);
     }
 }
