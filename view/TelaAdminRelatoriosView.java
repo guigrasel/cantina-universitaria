@@ -8,15 +8,15 @@ import model.HistoricoTransacoes;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class TelaAdminPrincipalView extends JFrame {
-  private Estoque estoque;
+public class TelaAdminRelatoriosView extends JFrame {
+  // private Estoque estoque;
   private HistoricoTransacoes historicoTransacoes;
 
-  public TelaAdminPrincipalView(Estoque estoque, HistoricoTransacoes historicoTransacoes) 
+  public TelaAdminRelatoriosView(Estoque estoque, HistoricoTransacoes historicoTransacoes) 
   {
-    this.estoque = estoque;
+    // this.estoque = estoque;
     this.historicoTransacoes = historicoTransacoes;
-    setTitle("Área Administrativa - Cantina");
+    setTitle("Área Administrativa - Cantina - Relatórios");
     setSize(500, 400);
     setLocationRelativeTo(null);
     setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -24,7 +24,7 @@ public class TelaAdminPrincipalView extends JFrame {
     JPanel panel = new JPanel(new BorderLayout(10, 10));
     panel.setBackground(new Color(245, 245, 250));
 
-    JLabel lblTitulo = new JLabel("Painel Administrativo", JLabel.CENTER);
+    JLabel lblTitulo = new JLabel("Painel Administrativo - Relatórios", JLabel.CENTER);
     lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 22));
     lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
     panel.add(lblTitulo, BorderLayout.NORTH);
@@ -33,19 +33,16 @@ public class TelaAdminPrincipalView extends JFrame {
     botoesPanel.setBackground(new Color(245, 245, 250));
     botoesPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
-    JButton btnEstoque = new JButton("Gerenciar Estoque");
-    JButton btnRelatorios = new JButton("Relatórios");
+    JButton btnTransacoesRealizadas = new JButton("Transações Realizadas");
     JButton btnSair = new JButton("Sair");
 
-    botoesPanel.add(btnEstoque);
-    botoesPanel.add(btnRelatorios);
+    botoesPanel.add(btnTransacoesRealizadas);
     botoesPanel.add(btnSair);
 
     panel.add(botoesPanel, BorderLayout.CENTER);
 
     btnSair.addActionListener((ActionEvent e) -> dispose());
-    btnEstoque.addActionListener(e -> new TelaEstoqueView(this.estoque).setVisible(true));
-    btnRelatorios.addActionListener(e -> new TelaAdminRelatoriosView(this.estoque, this.historicoTransacoes).setVisible(true));
+    btnTransacoesRealizadas.addActionListener(e -> new TelaAdminRelTransacoesRealizadasView(this.historicoTransacoes).setVisible(true));
 
     setContentPane(panel);
     setResizable(false);
