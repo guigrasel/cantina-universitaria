@@ -57,5 +57,7 @@ public class TelaPrincipalView extends JFrame {
 
     btnAutoatendimento.addActionListener(e -> new TelaAutoatendimentoView(estoque, historicoTransacoes, caixa).setVisible(true));
     btnAdmin.addActionListener(e -> new TelaLoginAdminView(estoque, historicoTransacoes, caixa).setVisible(true));
+
+    setResizable(false);
   }
 }

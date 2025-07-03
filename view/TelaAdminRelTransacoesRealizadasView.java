@@ -41,6 +41,7 @@ public class TelaAdminRelTransacoesRealizadasView extends JFrame {
     add(panelBottom, BorderLayout.SOUTH);
 
     atualizarTabela();
+    setResizable(false);
   }
 
   private void atualizarTabela() 

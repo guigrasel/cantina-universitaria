@@ -92,6 +92,8 @@ public class TelaAutoatendimentoView extends JFrame {
     btnRemover.addActionListener(e -> removerDoCarrinho());
     btnFinalizar.addActionListener(e -> finalizarCompra());
     btnCancelar.addActionListener(e -> cancelarCompra());
+
+    setResizable(false);
   }
 
   private void atualizarTabelaProdutos() {

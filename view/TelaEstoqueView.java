@@ -33,7 +33,7 @@ public class TelaEstoqueView extends JFrame {
     JButton btnAdicionar = new JButton("Adicionar Produto");
     JButton btnAbastecer = new JButton("Abastecer Produto");
     JButton btnRemover = new JButton("Remover Produto");
-    JButton btnAtualizar = new JButton("Atualizar Tabela");
+    JButton btnAtualizar = new JButton("Recarregar");
 
     JPanel panelBotoes = new JPanel();
     panelBotoes.add(btnAdicionar);
@@ -50,6 +50,8 @@ public class TelaEstoqueView extends JFrame {
     btnAbastecer.addActionListener(e -> abastecerProduto());
     btnRemover.addActionListener(e -> removerProduto());
     btnAtualizar.addActionListener(e -> atualizarTabela());
+
+    setResizable(false);
   }
 
   private void atualizarTabela() {
