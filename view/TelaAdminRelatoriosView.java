@@ -6,7 +6,6 @@ import controller.Estoque;
 import model.HistoricoTransacoes;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class TelaAdminRelatoriosView extends JFrame {
   private HistoricoTransacoes historicoTransacoes;
@@ -32,15 +31,12 @@ public class TelaAdminRelatoriosView extends JFrame {
 
     JButton btnTransacoesRealizadas = new JButton("Transações Realizadas");
     JButton btnItensMaisPedidos = new JButton("Itens mais pedidos");
-    JButton btnSair = new JButton("Sair");
 
     botoesPanel.add(btnTransacoesRealizadas);
     botoesPanel.add(btnItensMaisPedidos);
-    botoesPanel.add(btnSair);
 
     panel.add(botoesPanel, BorderLayout.CENTER);
 
-    btnSair.addActionListener((ActionEvent e) -> dispose());
     btnTransacoesRealizadas.addActionListener(e -> new TelaAdminRelTransacoesRealizadasView(this.historicoTransacoes).setVisible(true));
     btnItensMaisPedidos.addActionListener(e -> new TelaAdminRelMaisVendidosView(this.historicoTransacoes).setVisible(true));
 

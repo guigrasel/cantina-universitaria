@@ -22,7 +22,7 @@ public class TelaLoginAdminView extends JFrame {
     panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-    JLabel lblTitulo = new JLabel("Área Administrativa");
+    JLabel lblTitulo = new JLabel("Área administrativa");
     lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JTextField txtUsuario = new JTextField(15);
@@ -31,7 +31,6 @@ public class TelaLoginAdminView extends JFrame {
     JButton btnLogin = new JButton("Entrar");
     btnLogin.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-    // Espaçamentos
     panel.add(lblTitulo);
     panel.add(Box.createRigidArea(new Dimension(0, 15)));
     panel.add(txtUsuario);
@@ -45,16 +44,16 @@ public class TelaLoginAdminView extends JFrame {
     btnLogin.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-          String usuario = txtUsuario.getText();
-          String senha = new String(txtSenha.getPassword());
+        String usuario = txtUsuario.getText();
+        String senha = new String(txtSenha.getPassword());
 
-          if (usuario.equals("admin") && senha.equals("admin")) {
-              JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
-              new TelaAdminPrincipalView(estoque, historicoTransacoes, caixa).setVisible(true);
-              dispose();
-          } else {
-              JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
-          }
+        if (usuario.equals("admin") && senha.equals("admin")) {
+            JOptionPane.showMessageDialog(null, "Login realizado com sucesso!");
+            new TelaAdminPrincipalView(estoque, historicoTransacoes, caixa).setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuário ou senha incorretos.", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
       }
     });
 
