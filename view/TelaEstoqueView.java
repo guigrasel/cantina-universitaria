@@ -54,9 +54,11 @@ public class TelaEstoqueView extends JFrame {
     setResizable(false);
   }
 
-  private void atualizarTabela() {
+  private void atualizarTabela() 
+  {
     tableModel.setRowCount(0);
-    for (Produto p : estoque.getProdutos()) {
+    for (Produto p : estoque.getProdutos()) 
+    {
       tableModel.addRow(new Object[]{
         p.getId(),
         p.getCategoria(),
@@ -87,11 +89,9 @@ public class TelaEstoqueView extends JFrame {
       panel.add(new JLabel("Validade (dd/MM/yyyy):"));
       panel.add(txtValidade);
 
-      // Campos extras
       JTextField txtAtributoExtra = new JTextField();
       JCheckBox chkExtra = new JCheckBox();
 
-      // Atualiza o painel quando muda a categoria
       comboCategoria.addActionListener(e -> {
           panel.remove(txtAtributoExtra);
           panel.remove(chkExtra);
@@ -110,7 +110,7 @@ public class TelaEstoqueView extends JFrame {
           panel.revalidate();
           panel.repaint();
       });
-      // Chama para inicializar com o campo certo
+
       comboCategoria.setSelectedIndex(0);
 
       int result = JOptionPane.showConfirmDialog(this, panel, "Adicionar Produto", JOptionPane.OK_CANCEL_OPTION);
@@ -152,7 +152,8 @@ public class TelaEstoqueView extends JFrame {
   private void abastecerProduto() 
   {
     int selectedRow = table.getSelectedRow();
-    if (selectedRow == -1) {
+    if (selectedRow == -1) 
+    {
       JOptionPane.showMessageDialog(this, "Selecione um produto para abastecer.");
       return;
     }
@@ -163,7 +164,8 @@ public class TelaEstoqueView extends JFrame {
     String input = JOptionPane.showInputDialog(this,
       "Quantidade a abastecer para '" + produto.getNome() + "':", "0");
 
-    if (input != null) {
+    if (input != null) 
+    {
       try {
         int qtdAbastecer = Integer.parseInt(input);
         if (qtdAbastecer < 1) throw new NumberFormatException();

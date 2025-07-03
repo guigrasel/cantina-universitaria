@@ -27,7 +27,7 @@ public class TelaAdminPrincipalView extends JFrame {
     JPanel panel = new JPanel(new BorderLayout(10, 10));
     panel.setBackground(new Color(245, 245, 250));
 
-    JLabel lblTitulo = new JLabel("Painel Administrativo", JLabel.CENTER);
+    JLabel lblTitulo = new JLabel("Área Administrativa", JLabel.CENTER);
     lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 22));
     lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
     panel.add(lblTitulo, BorderLayout.NORTH);

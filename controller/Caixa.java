@@ -3,6 +3,8 @@ package controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import exceptions.TrocoInsuficienteException;
+
 public class Caixa {
 
   private Map<Double, Integer> dinheiro = new HashMap<>();
@@ -47,7 +49,7 @@ public class Caixa {
     return total;
   }
 
-  public Map<Double, Integer> calcularTroco(double valorTroco) throws Exception 
+  public Map<Double, Integer> calcularTroco(double valorTroco) throws TrocoInsuficienteException 
   {
     Map<Double, Integer> troco = new HashMap<>();
     double[] valores = {100.0, 50.0, 20.0, 10.0, 5.0, 2.0, 1.0, 0.5, 0.25, 0.10, 0.05};
@@ -68,9 +70,9 @@ public class Caixa {
         troco.put(valor, qtd);
       }
     }
-    if (restante > 0.009) 
+    if (restante > 0.05) 
     {
-      throw new Exception("Caixa sem troco suficiente para esta operação.");
+      throw new TrocoInsuficienteException("Caixa sem troco suficiente para esta operação.");
     }
     return troco;
   }
