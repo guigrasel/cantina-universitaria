@@ -40,7 +40,7 @@ public class TelaAdminRelCaixaView extends JFrame {
         btnRecarregar.addActionListener(e -> atualizarTabela());
 
         JPanel panelBottom = new JPanel(new BorderLayout());
-        panelBottom.add(lblTotal, BorderLayout.CENTER);
+        panelBottom.add(lblTotal, BorderLayout.WEST);
         panelBottom.add(btnRecarregar, BorderLayout.EAST);
 
         add(scrollPane, BorderLayout.CENTER);

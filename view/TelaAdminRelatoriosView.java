@@ -31,14 +31,17 @@ public class TelaAdminRelatoriosView extends JFrame {
 
     JButton btnTransacoesRealizadas = new JButton("Transações Realizadas");
     JButton btnItensMaisPedidos = new JButton("Itens mais pedidos");
+    JButton btnHorariosMovimento = new JButton("Horários de maior movimento");
 
     botoesPanel.add(btnTransacoesRealizadas);
     botoesPanel.add(btnItensMaisPedidos);
+    botoesPanel.add(btnHorariosMovimento);
 
     panel.add(botoesPanel, BorderLayout.CENTER);
 
     btnTransacoesRealizadas.addActionListener(e -> new TelaAdminRelTransacoesRealizadasView(this.historicoTransacoes).setVisible(true));
     btnItensMaisPedidos.addActionListener(e -> new TelaAdminRelMaisVendidosView(this.historicoTransacoes).setVisible(true));
+    btnHorariosMovimento.addActionListener(e -> new TelaAdminRelHorariosMovimentoView(this.historicoTransacoes).setVisible(true));
 
     setContentPane(panel);
     setResizable(false);
