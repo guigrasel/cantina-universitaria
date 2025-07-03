@@ -32,7 +32,13 @@ public class TelaAdminRelTransacoesRealizadasView extends JFrame {
     table = new JTable(tableModel);
     JScrollPane scrollPane = new JScrollPane(table);
 
+    JPanel panelBottom = new JPanel(new BorderLayout());
+    JButton btnRecarregar = new JButton("Recarregar");
+    panelBottom.add(btnRecarregar, BorderLayout.CENTER);
+    btnRecarregar.addActionListener(e -> atualizarTabela());
+    
     add(scrollPane, BorderLayout.CENTER);
+    add(panelBottom, BorderLayout.SOUTH);
 
     atualizarTabela();
   }
