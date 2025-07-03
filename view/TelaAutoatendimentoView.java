@@ -1,5 +1,6 @@
 package view;
 
+import controller.Caixa;
 import controller.Estoque;
 import model.HistoricoTransacoes;
 import model.Produto;
@@ -9,10 +10,13 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TelaAutoatendimentoView extends JFrame {
 
   private Estoque estoque;
+  private Caixa caixa;
   private HistoricoTransacoes historicoTransacoes;
   private DefaultTableModel tableModel;
   private JTable table;
@@ -21,9 +25,10 @@ public class TelaAutoatendimentoView extends JFrame {
   private ArrayList<Produto> carrinho = new ArrayList<>();
   private JLabel lblTotal;
 
-  public TelaAutoatendimentoView(Estoque estoque, HistoricoTransacoes historicoTransacoes) {
+  public TelaAutoatendimentoView(Estoque estoque, HistoricoTransacoes historicoTransacoes, Caixa caixa) {
     this.estoque = estoque;
     this.historicoTransacoes = historicoTransacoes;
+    this.caixa = caixa;
     setTitle("Autoatendimento - Cantina Universitária");
     setSize(1200, 600);
     setLocationRelativeTo(null);
@@ -165,32 +170,47 @@ public class TelaAutoatendimentoView extends JFrame {
     atualizarTabelaCarrinho();
   }
 
-  private void finalizarCompra() 
-  {
-    if (carrinho.isEmpty()) 
-    {
+  private void finalizarCompra() {
+    if (carrinho.isEmpty()) {
       JOptionPane.showMessageDialog(this, "Seu carrinho está vazio!");
       return;
     }
+    double total = 0;
+    for (Produto p : carrinho) total += p.getPreco();
 
-    int result = JOptionPane.showConfirmDialog(this,
-        lblTotal.getText() + "\nDeseja finalizar a compra?",
-        "Confirmar Compra",
-        JOptionPane.YES_NO_OPTION);
+    String valorPagoStr = JOptionPane.showInputDialog(this, String.format("Valor total: R$ %.2f\nInsira o valor pago:", total));
 
-    if (result == JOptionPane.YES_OPTION) 
-    {
-      double total = 0;
-      for (Produto p : carrinho) total += p.getPreco();
+    if (valorPagoStr == null) return;
 
-      Transacao transacao = new Transacao(carrinho, total);
+    try {
+      double valorPago = Double.parseDouble(valorPagoStr.replace(",", "."));
+      if (valorPago < total) throw new Exception("Valor insuficiente.");
+
+      double troco = valorPago - total;
+      Map<Double, Integer> trocoEntregar = caixa.calcularTroco(troco);
+
+      Map<Double, Integer> dinheiroRecebido = converterValorParaNotas(valorPago);
+      caixa.adicionarDinheiro(dinheiroRecebido);
+      caixa.removerDinheiro(trocoEntregar);
+
+      ArrayList<Produto> produtosDaCompra = new ArrayList<>(carrinho);
+      Transacao transacao = new Transacao(produtosDaCompra, total);
       historicoTransacoes.adicionarTransacao(transacao);
 
-      JOptionPane.showMessageDialog(this, "Compra realizada!\n" + transacao.getResumo());
+      StringBuilder trocoMsg = new StringBuilder("Compra finalizada!\nTroco entregue: R$ " + String.format("%.2f", troco) + "\n");
+      for (Map.Entry<Double, Integer> entry : trocoEntregar.entrySet()) 
+      {
+          trocoMsg.append(String.format("%dx R$ %.2f\n", entry.getValue(), entry.getKey()));
+      }
+      JOptionPane.showMessageDialog(this, trocoMsg);
 
       carrinho.clear();
       atualizarTabelaProdutos();
       atualizarTabelaCarrinho();
+    } catch (NumberFormatException ex) {
+      JOptionPane.showMessageDialog(this, "Valor inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+      JOptionPane.showMessageDialog(this, ex.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
     }
   }
 
@@ -203,5 +223,22 @@ public class TelaAutoatendimentoView extends JFrame {
     carrinho.clear();
     atualizarTabelaProdutos();
     atualizarTabelaCarrinho();
+  }
+
+  private Map<Double, Integer> converterValorParaNotas(double valor) {
+    Map<Double, Integer> mapa = new HashMap<>();
+    double[] valores = {100.0, 50.0, 20.0, 10.0, 5.0, 2.0, 1.0, 0.5, 0.25, 0.10, 0.05};
+    double restante = Math.round(valor * 100.0) / 100.0;
+    for (double v : valores) 
+    {
+      int qtd = (int)(restante / v);
+      if (qtd > 0) 
+      {
+        mapa.put(v, qtd);
+        restante -= v * qtd;
+        restante = Math.round(restante * 100.0) / 100.0;
+      }
+    }
+    return mapa;
   }
 }
