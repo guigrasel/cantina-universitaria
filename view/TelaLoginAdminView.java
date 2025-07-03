@@ -23,7 +23,6 @@ public class TelaLoginAdminView extends JFrame {
     panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
     JLabel lblTitulo = new JLabel("Área Administrativa");
-    lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 20));
     lblTitulo.setAlignmentX(Component.CENTER_ALIGNMENT);
 
     JTextField txtUsuario = new JTextField(15);

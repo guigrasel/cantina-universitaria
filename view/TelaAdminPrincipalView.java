@@ -28,12 +28,10 @@ public class TelaAdminPrincipalView extends JFrame {
     panel.setBackground(new Color(245, 245, 250));
 
     JLabel lblTitulo = new JLabel("Área Administrativa", JLabel.CENTER);
-    lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 22));
     lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
     panel.add(lblTitulo, BorderLayout.NORTH);
 
     JPanel botoesPanel = new JPanel(new GridLayout(2, 2, 20, 20));
-    botoesPanel.setBackground(new Color(245, 245, 250));
     botoesPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 20, 40));
 
     JButton btnEstoque = new JButton("Gerenciar Estoque");

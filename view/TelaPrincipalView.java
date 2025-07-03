@@ -21,11 +21,9 @@ public class TelaPrincipalView extends JFrame {
     mainPanel.setLayout(new BorderLayout());
 
     JLabel titulo = new JLabel("Cantina Universitária", SwingConstants.CENTER);
-    titulo.setFont(new Font("SansSerif", Font.BOLD, 28));
     titulo.setBorder(BorderFactory.createEmptyBorder(30, 10, 0, 10));
 
     JLabel subtitulo = new JLabel("Seja bem-vindo! Escolha uma opção abaixo:", SwingConstants.CENTER);
-    subtitulo.setFont(new Font("SansSerif", Font.PLAIN, 16));
     subtitulo.setBorder(BorderFactory.createEmptyBorder(0, 10, 20, 10));
 
     JPanel botoesPanel = new JPanel();

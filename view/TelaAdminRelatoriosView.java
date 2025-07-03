@@ -23,7 +23,6 @@ public class TelaAdminRelatoriosView extends JFrame {
     panel.setBackground(new Color(245, 245, 250));
 
     JLabel lblTitulo = new JLabel("Área Administrativo - Relatórios", JLabel.CENTER);
-    lblTitulo.setFont(new Font("SansSerif", Font.BOLD, 22));
     lblTitulo.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
     panel.add(lblTitulo, BorderLayout.NORTH);
 
