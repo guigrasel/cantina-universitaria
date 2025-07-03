@@ -186,7 +186,7 @@ public class TelaAutoatendimentoView extends JFrame {
       Transacao transacao = new Transacao(carrinho, total);
       historicoTransacoes.adicionarTransacao(transacao);
 
-      JOptionPane.showMessageDialog(this, "Compra realizada!\n" + transacao);
+      JOptionPane.showMessageDialog(this, "Compra realizada!\n" + transacao.getResumo());
 
       carrinho.clear();
       atualizarTabelaProdutos();

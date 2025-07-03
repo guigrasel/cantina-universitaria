@@ -37,4 +37,8 @@ public class Transacao {
   { 
     return valorTotal; 
   }
+
+  public String getResumo() {
+    return "Transação ID: " + id + "\nData/Hora: " + dataHora + "\nValor Total: " + valorTotal;
+  }
 }
