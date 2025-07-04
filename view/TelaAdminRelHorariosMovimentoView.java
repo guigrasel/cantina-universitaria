@@ -9,11 +9,37 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+
+/**
+ * Tela de relatório de horários de maior movimento na cantina.
+ * 
+ * <p>
+ * Exibe, em uma tabela, a quantidade de vendas agrupadas por hora do dia, ordenando do horário mais movimentado para o menos movimentado.
+ * Permite recarregar os dados em tempo real.
+ * </p>
+ * 
+ * <ul>
+ *   <li>Analisa todas as transações do histórico e contabiliza o número de vendas por hora.</li>
+ *   <li>Exibe a informação ordenada do maior para o menor movimento.</li>
+ *   <li>Possui botão para recarregar os dados.</li>
+ * </ul>
+ */
+
 public class TelaAdminRelHorariosMovimentoView extends JFrame {
+  /** Referência ao histórico de transações. */
   private HistoricoTransacoes historico;
+
+  /** Modelo da tabela de horários e vendas. */
   private DefaultTableModel tableModel;
+
+  /** Tabela que exibe os dados de movimento por horário. */
   private JTable table;
 
+  /**
+   * Construtor da tela de relatório de horários de maior movimento.
+   *
+   * @param historico o histórico de transações a ser analisado
+   */
   public TelaAdminRelHorariosMovimentoView(HistoricoTransacoes historico) {
     this.historico = historico;
     setTitle("Relatório de horários de maior movimento");
@@ -39,6 +65,10 @@ public class TelaAdminRelHorariosMovimentoView extends JFrame {
     atualizarTabela();
   }
 
+  /**
+   * Atualiza a tabela com os dados mais recentes do histórico,
+   * mostrando as horas do dia com o maior número de vendas.
+   */
   private void atualizarTabela() 
   {
     tableModel.setRowCount(0);

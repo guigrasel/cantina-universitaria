@@ -9,7 +9,28 @@ import controller.Caixa;
 import controller.Estoque;
 import model.HistoricoTransacoes;
 
+/**
+ * Tela de login administrativo da cantina universitária.
+ * 
+ * <p>
+ * Permite o acesso à área administrativa do sistema, mediante autenticação simples de usuário e senha.
+ * Após login bem-sucedido, abre a tela principal da administração.
+ * </p>
+ *
+ * <ul>
+ *   <li>Usuário e senha padrão: <b>admin</b>.</li>
+ *   <li>Passa as instâncias de Estoque, Caixa e Histórico de Transações para a tela principal administrativa.</li>
+ * </ul>
+ */
+
 public class TelaLoginAdminView extends JFrame {
+  /**
+   * Construtor da tela de login administrativo.
+   * 
+   * @param estoque             referência ao estoque para repasse à administração
+   * @param historicoTransacoes referência ao histórico de transações
+   * @param caixa               referência ao caixa da cantina
+   */
   public TelaLoginAdminView(Estoque estoque, HistoricoTransacoes historicoTransacoes, Caixa caixa)
   {
     setTitle("Login Administrativo");

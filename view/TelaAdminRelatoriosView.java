@@ -7,9 +7,31 @@ import model.HistoricoTransacoes;
 
 import java.awt.*;
 
+/**
+ * Tela da área administrativa para acesso aos relatórios da cantina.
+ *
+ * <p>
+ * Permite ao administrador visualizar relatórios de transações realizadas,
+ * itens mais pedidos e horários de maior movimento.
+ * </p>
+ * 
+ * <ul>
+ *   <li>Abre janelas específicas de relatórios conforme o botão selecionado.</li>
+ *   <li>Recebe o {@link Estoque} e o {@link HistoricoTransacoes} para repasse às telas filhas.</li>
+ * </ul>
+ */
 public class TelaAdminRelatoriosView extends JFrame {
+  /**
+   * Referência ao histórico de transações realizadas.
+   */
   private HistoricoTransacoes historicoTransacoes;
 
+  /**
+   * Construtor da tela de relatórios administrativos.
+   *
+   * @param estoque             o estoque da cantina (caso seja necessário para relatórios futuros)
+   * @param historicoTransacoes o histórico de transações realizadas
+   */
   public TelaAdminRelatoriosView(Estoque estoque, HistoricoTransacoes historicoTransacoes) 
   {
     this.historicoTransacoes = historicoTransacoes;

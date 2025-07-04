@@ -6,12 +6,39 @@ import controller.Estoque;
 import model.Produto;
 import java.awt.*;
 
-public class TelaEstoqueView extends JFrame {
 
+/**
+ * Tela de gerenciamento do estoque da cantina universitária.
+ *
+ * <p>
+ * Permite ao administrador visualizar, adicionar, abastecer e remover produtos do estoque.
+ * Exibe todos os itens cadastrados em uma tabela e oferece formulários dinâmicos para cadastro de diferentes categorias de produtos.
+ * </p>
+ *
+ * <ul>
+ *   <li>Exibe a lista completa dos produtos do estoque.</li>
+ *   <li>Permite adicionar produtos com atributos específicos de cada categoria.</li>
+ *   <li>Permite abastecer a quantidade em estoque de produtos já cadastrados.</li>
+ *   <li>Permite remover produtos do estoque.</li>
+ *   <li>Oferece botão de recarregar a tabela.</li>
+ * </ul>
+ */
+
+public class TelaEstoqueView extends JFrame {
+  /** Referência ao estoque gerenciado. */
   private Estoque estoque;
+
+  /** Modelo da tabela que exibe os produtos. */
   private DefaultTableModel tableModel;
+
+  /** Tabela de exibição dos produtos. */
   private JTable table;
 
+  /**
+   * Construtor da tela de gerenciamento do estoque.
+   *
+   * @param estoque o estoque a ser gerenciado
+   */
   public TelaEstoqueView(Estoque estoque) {
     this.estoque = estoque;
     setTitle("Gerenciar Estoque");
@@ -54,6 +81,9 @@ public class TelaEstoqueView extends JFrame {
     setResizable(false);
   }
 
+  /**
+   * Atualiza a tabela exibindo todos os produtos do estoque.
+   */
   private void atualizarTabela() 
   {
     tableModel.setRowCount(0);
@@ -69,6 +99,10 @@ public class TelaEstoqueView extends JFrame {
     }
   }
 
+  /**
+   * Exibe um formulário para cadastro de novo produto no estoque.
+   * Adiciona o produto criado ao estoque se os dados forem válidos.
+   */
   private void adicionarProduto() 
   {
     JTextField txtNome = new JTextField();
@@ -148,7 +182,9 @@ public class TelaEstoqueView extends JFrame {
     }
   }
 
-
+  /**
+   * Permite abastecer a quantidade de um produto já cadastrado no estoque.
+   */
   private void abastecerProduto() 
   {
     int selectedRow = table.getSelectedRow();
@@ -177,6 +213,9 @@ public class TelaEstoqueView extends JFrame {
     }
   }
 
+  /**
+   * Remove um produto selecionado do estoque após confirmação do usuário.
+   */
   private void removerProduto() 
   {
     int selectedRow = table.getSelectedRow();

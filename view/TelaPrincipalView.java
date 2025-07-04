@@ -8,7 +8,29 @@ import model.HistoricoTransacoes;
 
 import java.awt.*;
 
+/**
+ * Tela principal da aplicação da cantina universitária.
+ *
+ * <p>
+ * Apresenta ao usuário as opções de autoatendimento (compra de produtos)
+ * e acesso à área administrativa (mediante login).
+ * </p>
+ *
+ * <ul>
+ *   <li>Permite acessar a interface de autoatendimento para compras.</li>
+ *   <li>Permite acessar a área administrativa mediante autenticação.</li>
+ *   <li>Recebe e repassa as instâncias de {@link Estoque}, {@link HistoricoTransacoes} e {@link Caixa}.</li>
+ * </ul>
+ */
+
 public class TelaPrincipalView extends JFrame {
+  /**
+   * Construtor da tela principal.
+   *
+   * @param estoque             referência ao estoque do sistema
+   * @param historicoTransacoes referência ao histórico de transações realizadas
+   * @param caixa               referência ao caixa da cantina
+   */
   public TelaPrincipalView(Estoque estoque, HistoricoTransacoes historicoTransacoes, Caixa caixa) 
   {
     setTitle("Cantina Universitária - Autoatendimento");
