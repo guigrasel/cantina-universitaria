@@ -78,7 +78,6 @@ public class TelaAdminRelTransacoesRealizadasView extends JFrame {
     tableModel.setRowCount(0);
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
     for (Transacao t : historico.getTransacoes()) {
-      System.out.println(t.getProdutos());
       tableModel.addRow(new Object[]{
         t.getId(),
         t.getDataHora().format(formatter),
