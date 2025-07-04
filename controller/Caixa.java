@@ -5,10 +5,27 @@ import java.util.Map;
 
 import exceptions.TrocoInsuficienteException;
 
-public class Caixa {
+/**
+ * Classe responsável pelo controle de dinheiro no caixa da cantina.
+ * 
+ * <p>
+ * Gerencia as operações de entrada e saída de cédulas/moedas, cálculo de saldo e troco, além de fornecer a situação atual do caixa.
+ * </p>
+ * 
+ * <ul>
+ *   <li>Permite adicionar e remover dinheiro do caixa.</li>
+ *   <li>Calcula o saldo total disponível.</li>
+ *   <li>Calcula o troco a ser fornecido ao cliente, verificando se o caixa possui cédulas/moedas suficientes.</li>
+ * </ul>
+ */
 
+public class Caixa {
   private Map<Double, Integer> dinheiro = new HashMap<>();
 
+  /**
+   * Construtor padrão.
+   * Inicializa o caixa com quantidades pré-definidas de cada valor.
+   */
   public Caixa() {
     dinheiro.put(100.0, 5);
     dinheiro.put(50.0, 5);
@@ -23,6 +40,11 @@ public class Caixa {
     dinheiro.put(0.05, 50);
   }
 
+  /**
+   * Adiciona as quantidades recebidas de cada cédula/moeda ao caixa.
+   * 
+   * @param recebido mapa contendo os valores e as quantidades a serem adicionadas
+   */
   public void adicionarDinheiro(Map<Double, Integer> recebido) 
   {
     for (Map.Entry<Double, Integer> entry : recebido.entrySet()) 
@@ -31,6 +53,11 @@ public class Caixa {
     }
   }
 
+  /**
+   * Remove as quantidades entregues de cada cédula/moeda do caixa.
+   * 
+   * @param entregue mapa contendo os valores e as quantidades a serem removidas
+   */
   public void removerDinheiro(Map<Double, Integer> entregue) 
   {
     for (Map.Entry<Double, Integer> entry : entregue.entrySet())
@@ -39,6 +66,11 @@ public class Caixa {
     }
   }
 
+  /**
+   * Calcula o saldo total em dinheiro disponível no caixa.
+   * 
+   * @return o valor total do caixa
+   */
   public double getSaldo() 
   {
     double total = 0;
@@ -49,6 +81,17 @@ public class Caixa {
     return total;
   }
 
+  /**
+   * Calcula o troco a ser fornecido para um determinado valor.
+   * <p>
+   * O método verifica se há quantidade suficiente de cada cédula/moeda no caixa para fornecer o troco.
+   * Se não houver troco suficiente, lança a exceção {@link TrocoInsuficienteException}.
+   * </p>
+   * 
+   * @param valorTroco valor de troco a ser fornecido
+   * @return mapa com os valores e as quantidades de cédulas/moedas a serem entregues como troco
+   * @throws TrocoInsuficienteException se não houver troco suficiente no caixa
+   */
   public Map<Double, Integer> calcularTroco(double valorTroco) throws TrocoInsuficienteException 
   {
     Map<Double, Integer> troco = new HashMap<>();
@@ -77,6 +120,11 @@ public class Caixa {
     return troco;
   }
 
+  /**
+   * Retorna a situação atual do caixa, informando a quantidade de cada valor de cédula/moeda.
+   * 
+   * @return um novo mapa contendo os valores e quantidades atuais do caixa
+   */
   public Map<Double, Integer> getDinheiro() 
   {
     return new HashMap<>(dinheiro);
